@@ -1,0 +1,72 @@
+﻿ // MainPage.xaml<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:ExamenApp1"
+             x:Class="ExamenApp1.MainPage">
+
+    <TabbedPage>
+        <!-- Pestaña 1: Área del Círculo -->
+        <ContentPage Title="Área del Círculo">
+            <StackLayout Padding="20">
+                <Entry x:Name="radioEntry" Placeholder="Ingrese el radio" Keyboard="Numeric"/>
+                <Button Text="Calcular" Clicked="OnCalcularAreaCirculoClicked"/>
+                <Label x:Name="resultadoCirculoLabel" Text="Resultado:"/>
+                <Button Text="Limpiar" Clicked="OnLimpiarClicked"/>
+            </StackLayout>
+        </ContentPage>
+
+        <!-- Pestaña 2: Área del Rectángulo -->
+        <ContentPage Title="Área del Rectángulo">
+            <StackLayout Padding="20">
+                <Entry x:Name="baseEntry" Placeholder="Ingrese la base" Keyboard="Numeric"/>
+                <Entry x:Name="alturaEntry" Placeholder="Ingrese la altura" Keyboard="Numeric"/>
+                <Button Text="Calcular" Clicked="OnCalcularAreaRectanguloClicked"/>
+                <Label x:Name="resultadoRectanguloLabel" Text="Resultado:"/>
+                <Button Text="Limpiar" Clicked="OnLimpiarClicked"/>
+            </StackLayout>
+        </ContentPage>
+    </TabbedPage>
+</ContentPage>
+
+// MainPage.xaml.cs
+public partial class MainPage : TabbedPage
+{
+    public MainPage()
+    {
+        InitializeComponent();
+    }
+
+    void OnCalcularAreaCirculoClicked(object sender, EventArgs e)
+    {
+        if (double.TryParse(radioEntry.Text, out double radio))
+        {
+            double area = Math.PI * radio * radio;
+            resultadoCirculoLabel.Text = $"Resultado: {area}";
+        }
+        else
+        {
+            // Mostrar mensaje de error o validación
+        }
+    }
+
+    void OnCalcularAreaRectanguloClicked(object sender, EventArgs e)
+    {
+        if (double.TryParse(baseEntry.Text, out double baseRect) && double.TryParse(alturaEntry.Text, out double altura))
+        {
+            double area = baseRect * altura;
+            resultadoRectanguloLabel.Text = $"Resultado: {area}";
+        }
+        else
+        {
+            // Mostrar mensaje de error o validación
+        }
+    }
+
+    void OnLimpiarClicked(object sender, EventArgs e)
+    {
+        radioEntry.Text = string.Empty;
+        baseEntry.Text = string.Empty;
+        alturaEntry.Text = string.Empty;
+        resultadoCirculoLabel.Text = "Resultado:";
+        resultadoRectanguloLabel.Text = "Resultado:";
+    }
+}
